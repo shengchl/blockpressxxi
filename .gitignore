@@ -1,0 +1,7 @@
+frontend/node_modules
+.DS_Store
+.vscode
+tmp/
+log/
+public/assets/
+.idea/
