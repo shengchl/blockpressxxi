@@ -175,4 +175,3 @@ class BlockSyncService
     end
   end
 end
-

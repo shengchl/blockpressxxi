@@ -1,7 +1,16 @@
 source 'https://rubygems.org'
 
+#ruby '2.4.2'
+
+# Gems required for running several rails components with RUBY_VERSION >= 2.7
+if RUBY_VERSION >= '2.7'
+  gem 'e2mmap'
+  gem 'thwait'
+  gem 'bigdecimal', '1.3.5'
+end
+
 gem 'arel', '6.0.0'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.11.3'
 gem 'sqlite3', '= 1.3.10'
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -38,7 +47,7 @@ gem 'cashaddress'
 gem 'rest-client'
 gem 'cachy'
 gem 'actionpack-action_caching'
-gem 'mysql2', '~> 0.3.18'
+gem 'mysql2', '~> 0.4.0'#, '~> 0.3.18'
 gem 'rqrcode'
 gem 'jquery-rails', '~> 2.1'
 gem 'mutations'
@@ -55,7 +64,7 @@ gem 'ejs'
 gem 'gon'
 gem 'gibbon'
 gem 'file-temp'
-gem 'curb'
+gem 'curb' , '~> 0.9.8'
 gem 'open_uri_redirections'
 gem 'css_parser'
 gem 'image_optim'
@@ -84,7 +93,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
 end
 group :production do

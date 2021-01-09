@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bitcoin": "^3.0.1",
-    "bitcoincashjs": "^0.1.14",
+    "bitcoincashjs": "file:bitcoincashjs",
     "bitcoinjs-lib": "file:bitcoinjs-lib",
     "body-parser": "^1.18.2",
     "bs58": "^4.0.1",

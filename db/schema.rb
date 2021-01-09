@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20180509011237) do
     t.datetime "updated_at"
   end
 
-  add_index "account_managers", ["account_id"], name: "fk_rails_aa76ce09f5", using: :btree
-  add_index "account_managers", ["user_id"], name: "fk_rails_8a19b68de5", using: :btree
+  add_index "account_managers", ["account_id"], name: "fk_rails_6e3233ae51", using: :btree
+  add_index "account_managers", ["user_id"], name: "fk_rails_8da05acefe", using: :btree
 
   create_table "accounts", force: :cascade do |t|
     t.string   "account_guid", limit: 255, null: false
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 20180509011237) do
     t.datetime "updated_at"
   end
 
-  add_index "identities", ["user_id"], name: "fk_rails_dc484f9c03", using: :btree
+  add_index "identities", ["user_id"], name: "fk_rails_5373344100", using: :btree
 
   create_table "local_spent_utxos", force: :cascade do |t|
     t.string   "address",       limit: 80, null: false
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(version: 20180509011237) do
     t.datetime "updated_at"
   end
 
-  add_index "network_connections", ["account_id"], name: "fk_rails_b59467b2ad", using: :btree
+  add_index "network_connections", ["account_id"], name: "fk_rails_cb1738281e", using: :btree
 
   create_table "sync_stats", force: :cascade do |t|
     t.string   "next_block_to_sync",     limit: 255, null: false

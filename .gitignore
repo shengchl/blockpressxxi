@@ -1,4 +1,5 @@
 frontend/node_modules
+bitcoin-rpc-adapter-service/node_modules
 .DS_Store
 .vscode
 tmp/

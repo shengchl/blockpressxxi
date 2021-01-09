@@ -1,10 +1,10 @@
 development:
   adapter: mysql2
   host: 127.0.0.1
-  database: blockpress_development
+  database: bpxxi_dev	
   port: 3306
-  username: root
-  password: macron.motive.claque.passband.iniquity.pliable.flail
+  username: memo
+  password: 33FHC14rHpMLXuEi#
   pool: 5
   encoding: utf8mb4
   collation: utf8mb4_bin
@@ -14,20 +14,20 @@ development:
 test: &test
   adapter: mysql2
   host: 127.0.0.1
-  database: blockpress_test
+  database: bpxxi_test
   port: 3306
-  username: root
-  password: macron.motive.claque.passband.iniquity.pliable.flail
+  username: memo
+  password: 33FHC14rHpMLXuEi#
   pool: 5
   encoding: utf8mb4
   collation: utf8mb4_unicode_ci
 production:
   adapter: mysql2
-  host: blockpressmain-us-west-2c.817373nddjaa.us-west-2.rds.amazonaws.com
+  host: 127.0.0.1	
   database: blockpress_production
   port: 3306
-  username: root
-  password: macron.motive.claque.passband.iniquity.pliable.flail
+  username: memo
+  password: 33FHC14rHpMLXuEi#
   pool: 5
   encoding: utf8mb4
   collation: utf8mb4_unicode_ci
