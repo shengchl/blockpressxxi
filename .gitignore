@@ -5,4 +5,6 @@ bitcoin-rpc-adapter-service/node_modules
 tmp/
 log/
 public/assets/
+vendor/bip_mnemonic-master/.gitbackup
+vendor/money-tree-master/.gitbackup
 .idea/
