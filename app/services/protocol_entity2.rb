@@ -24,6 +24,8 @@ class ProtocolEntity2
     @command = command
     @args = ProtocolParserFactory::get_params_array(payload)
     @decoded_entity = self.decode_entity(command, payload)
+    puts "HEX IS #{@hex}"
+    puts "Payload IS #{@payload}"
   end
 
   def self.get_address_ident(address_id)

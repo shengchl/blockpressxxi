@@ -99,12 +99,15 @@ class BlockSyncService
   end
 
   def self.perform_sync(block_hash)
+    puts "TRY TO PERFORM SYNC #{block_hash}"
     request = "#{Rails.configuration.app[:block_syncer_url]}/rest/block/#{block_hash}.json"
     response = RestClient.get request
     if response.code != 200
       return {status: 'api error fetch'}
     end
     data = JSON.parse response.body
+
+    puts "raw response body is #{data}"
 
     block_time = data['mediantime']
     tx_count = 0
