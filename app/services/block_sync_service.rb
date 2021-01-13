@@ -107,7 +107,7 @@ class BlockSyncService
     end
     data = JSON.parse response.body
 
-    puts "raw response body is #{data}"
+    puts "raw response body is #{data['tx']}"
 
     block_time = data['mediantime']
     tx_count = 0
@@ -122,10 +122,10 @@ class BlockSyncService
         end
         found_matching_tx = false
         tx['vout'].each do |vout|
-          if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(8d)/
+          if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
             found_matching_tx = true
             break
-          elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a028d/
+          elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
             found_matching_tx = true
             break
           end
@@ -170,7 +170,7 @@ class BlockSyncService
         sync_stat.last_block_sync_status = 'OK repeat'
         sync_stat.save
         puts 'All caught up , exitting'
-        sleep 3
+        sleep 0.1
       end
     rescue => e
       puts e.backtrace

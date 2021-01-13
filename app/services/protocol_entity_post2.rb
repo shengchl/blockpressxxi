@@ -1,7 +1,3 @@
-# encoding: UTF-8
-# coding: UTF-8
-# -*- coding: UTF-8 -*-
-
 class ProtocolEntityPost2 < ProtocolEntity2
   PREFIX = '02'
 
@@ -72,6 +68,8 @@ class ProtocolEntityPost2 < ProtocolEntity2
     
     # p t.valid_encoding?
     # p @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
+
+    # skip post if post body is not a valid utf8
     return unless @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
     
     begin

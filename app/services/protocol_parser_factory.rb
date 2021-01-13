@@ -1,5 +1,3 @@
-
-
 class ProtocolParserFactory
   class ProtocolParserError < StandardError
   end

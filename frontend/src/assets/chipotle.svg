@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="chipotle.svg"
+   id="svg863"
+   version="1.1"
+   viewBox="0 0 512 512"
+   role="img"
+   class="svg-inline--fa fa-pepper-hot fa-w-16"
+   data-icon="pepper-hot"
+   data-prefix="fas"
+   focusable="false"
+   aria-hidden="true">
+  <metadata
+     id="metadata869">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs867">
+    <filter
+       id="filter1039"
+       style="color-interpolation-filters:sRGB;"
+       y="-0.25"
+       height="1.5"
+       x="-0.25"
+       width="1.5"
+       inkscape:label="3D Mother of Pearl"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="3D warped, iridescent pearly shell texture">
+      <feGaussianBlur
+         id="feGaussianBlur1013"
+         stdDeviation="3"
+         result="result8" />
+      <feTurbulence
+         id="feTurbulence1015"
+         seed="77"
+         result="result7"
+         type="fractalNoise"
+         numOctaves="8"
+         baseFrequency="0.03 0.03" />
+      <feColorMatrix
+         id="feColorMatrix1017"
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.6 -0.6 " />
+      <feComposite
+         id="feComposite1019"
+         result="result6"
+         in="result7"
+         operator="in"
+         in2="result8" />
+      <feDisplacementMap
+         id="feDisplacementMap1021"
+         in="result5"
+         xChannelSelector="A"
+         yChannelSelector="A"
+         scale="60"
+         result="result4"
+         in2="result6" />
+      <feConvolveMatrix
+         id="feConvolveMatrix1023"
+         result="result9"
+         divisor="2"
+         targetY="2"
+         targetX="2"
+         kernelMatrix="2 0 0 0 4 0 0 0 -2 "
+         order="3 3" />
+      <feComposite
+         id="feComposite1025"
+         result="result10"
+         in="result9"
+         operator="atop"
+         in2="SourceGraphic" />
+      <feBlend
+         id="feBlend1027"
+         result="fbSourceGraphic"
+         mode="darken"
+         in2="result10" />
+      <feGaussianBlur
+         id="feGaussianBlur1029"
+         stdDeviation="5"
+         in="fbSourceGraphic"
+         result="result0" />
+      <feSpecularLighting
+         id="feSpecularLighting1033"
+         in="result0"
+         result="result1"
+         lighting-color="rgb(242,215,108)"
+         surfaceScale="5"
+         specularConstant="1"
+         specularExponent="25">
+        <feDistantLight
+           id="feDistantLight1031"
+           elevation="60"
+           azimuth="235" />
+      </feSpecularLighting>
+      <feComposite
+         id="feComposite1035"
+         in2="fbSourceGraphic"
+         in="result1"
+         result="result2"
+         operator="in" />
+      <feComposite
+         id="feComposite1037"
+         in2="result2"
+         in="fbSourceGraphic"
+         result="result4"
+         operator="arithmetic"
+         k2="1"
+         k3="1" />
+    </filter>
+    <filter
+       id="filter1067"
+       style="color-interpolation-filters:sRGB;"
+       y="-0.25"
+       height="1.5"
+       x="-0.25"
+       width="1.5"
+       inkscape:label="3D Mother of Pearl"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="3D warped, iridescent pearly shell texture">
+      <feGaussianBlur
+         id="feGaussianBlur1041"
+         stdDeviation="3"
+         result="result8" />
+      <feTurbulence
+         id="feTurbulence1043"
+         seed="77"
+         result="result7"
+         type="fractalNoise"
+         numOctaves="8"
+         baseFrequency="0.03 0.03" />
+      <feColorMatrix
+         id="feColorMatrix1045"
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.6 -0.6 " />
+      <feComposite
+         id="feComposite1047"
+         result="result6"
+         in="result7"
+         operator="in"
+         in2="result8" />
+      <feDisplacementMap
+         id="feDisplacementMap1049"
+         in="result5"
+         xChannelSelector="A"
+         yChannelSelector="A"
+         scale="60"
+         result="result4"
+         in2="result6" />
+      <feConvolveMatrix
+         id="feConvolveMatrix1051"
+         result="result9"
+         divisor="2"
+         targetY="2"
+         targetX="2"
+         kernelMatrix="2 0 0 0 4 0 0 0 -2 "
+         order="3 3" />
+      <feComposite
+         id="feComposite1053"
+         result="result10"
+         in="result9"
+         operator="atop"
+         in2="SourceGraphic" />
+      <feBlend
+         id="feBlend1055"
+         result="fbSourceGraphic"
+         mode="darken"
+         in2="result10" />
+      <feGaussianBlur
+         id="feGaussianBlur1057"
+         stdDeviation="5"
+         in="fbSourceGraphic"
+         result="result0" />
+      <feSpecularLighting
+         id="feSpecularLighting1061"
+         in="result0"
+         result="result1"
+         lighting-color="rgb(242,215,108)"
+         surfaceScale="5"
+         specularConstant="1"
+         specularExponent="25">
+        <feDistantLight
+           id="feDistantLight1059"
+           elevation="60"
+           azimuth="235" />
+      </feSpecularLighting>
+      <feComposite
+         id="feComposite1063"
+         in2="fbSourceGraphic"
+         in="result1"
+         result="result2"
+         operator="in" />
+      <feComposite
+         id="feComposite1065"
+         in2="result2"
+         in="fbSourceGraphic"
+         result="result4"
+         operator="arithmetic"
+         k2="1"
+         k3="1" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     inkscape:current-layer="svg863"
+     inkscape:window-maximized="0"
+     inkscape:window-y="25"
+     inkscape:window-x="142"
+     inkscape:cy="256"
+     inkscape:cx="256"
+     inkscape:zoom="1.3046875"
+     showgrid="false"
+     id="namedview865"
+     inkscape:window-height="1147"
+     inkscape:window-width="2266"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <path
+     id="path861"
+     d="M330.67 263.12V173.4l-52.75-24.22C219.44 218.76 197.58 400 56 400a56 56 0 0 0 0 112c212.64 0 370.65-122.87 419.18-210.34l-37.05-38.54zm131.09-128.37C493.92 74.91 477.18 26.48 458.62 3a8 8 0 0 0-11.93-.59l-22.9 23a8.06 8.06 0 0 0-.89 10.23c6.86 10.36 17.05 35.1-1.4 72.32A142.85 142.85 0 0 0 364.34 96c-28 0-54 8.54-76.34 22.59l74.67 34.29v78.24h89.09L506.44 288c3.26-12.62 5.56-25.63 5.56-39.31a154 154 0 0 0-50.24-113.94z"
+     fill="currentColor" />
+  <path
+     id="path871"
+     d="M 49.820359,511.07914 C 29.186348,509.14933 10.635781,494.20414 3.3607662,473.64918 0.67488989,466.06046 -0.03715103,451.5795 1.8734469,443.4012 5.4670244,428.01891 16.302872,414.20769 30.722795,406.63024 c 8.052522,-4.23148 15.164839,-5.72497 31.093239,-6.52911 39.989436,-2.01887 68.958496,-15.32817 97.394016,-44.74587 23.79524,-24.61714 40.55107,-52.66738 71.48296,-119.66664 13.89427,-30.09535 24.91785,-52.12314 31.75832,-63.46081 5.8158,-9.63934 14.00765,-21.19149 15.4085,-21.72905 0.53501,-0.2053 12.55456,4.90957 26.71013,11.36638 l 25.73738,11.73965 0.02,45.02994 0.02,45.02994 h 53.85078 53.85079 l 13.06813,13.60479 c 7.18748,7.48264 15.41375,16.10092 18.2806,19.15175 l 5.21246,5.54695 -4.40545,7.09976 c -29.66349,47.80525 -83.04178,95.83357 -146.75552,132.04655 -63.06352,35.84341 -134.28027,58.94024 -206.56287,66.99191 -24.50968,2.73017 -55.141762,4.08797 -67.065871,2.97276 z"
+     style="fill:#800000;stroke-width:0.766467" />
+  <path
+     id="path873"
+     d="M 47.904192,510.43185 C 35.524395,508.79702 22.243445,501.26607 13.842535,491.11721 9.255542,485.57582 3.5686234,474.3532 2.3639531,468.46527 1.1206051,462.3883 1.321888,447.21993 2.7172989,441.83768 7.4920095,423.42112 24.150787,407.00447 42.33526,402.79554 c 2.838883,-0.65708 11.537653,-1.71188 19.330599,-2.344 26.918442,-2.18346 40.385241,-5.62546 58.669471,-14.99544 25.53292,-13.08466 50.09281,-37.77873 70.11416,-70.4972 10.30207,-16.83543 20.11997,-35.82622 36.9095,-71.39412 18.99486,-40.23982 29.97481,-62.19102 35.9523,-71.87616 5.86636,-9.50507 13.27891,-19.93619 14.50002,-20.40477 1.00436,-0.38541 10.93684,3.81103 36.51442,15.42723 l 15.02035,6.82157 0.49873,16.51511 c 0.2743,9.08331 0.49958,29.36302 0.50062,45.06601 l 0.002,28.5509 h 53.59665 53.59665 l 17.77631,18.58683 c 9.77696,10.22275 17.93356,18.98951 18.12575,19.48168 0.73435,1.88045 -13.45326,22.55595 -26.47252,38.5782 -12.7678,15.7128 -41.16251,42.85377 -61.71381,58.9889 -70.18293,55.10165 -159.82059,92.98409 -251.1246,106.1296 -31.93829,4.59833 -71.781885,6.90961 -86.227548,5.00197 z"
+     style="fill:#550000;stroke-width:0.766467;filter:url(#filter1039)" />
+  <path
+     id="path875"
+     d="m 478.74801,258.61161 -26.737,-27.90502 h -44.34585 -44.34585 l -0.19858,-39.11516 -0.19857,-39.11515 -37.01107,-16.98296 -37.01106,-16.98296 4.43621,-2.55497 c 36.64752,-21.106562 79.57941,-25.235137 117.87334,-11.33536 11.50231,4.17506 10.59752,4.21131 12.63268,-0.50623 6.08592,-14.107304 8.92201,-27.963477 8.19952,-40.060155 -0.57415,-9.613133 -2.65635,-17.140228 -7.11625,-25.725036 -2.75463,-5.302355 -3.35129,-7.112992 -2.92914,-8.888872 0.35361,-1.487571 4.91402,-6.632598 13.69598,-15.451713 C 448.074,1.5540083 449.0297,0.76646707 451.73699,0.76646707 c 4.02902,0 5.30717,0.88353023 9.16216,6.33345103 8.16263,11.5397719 14.42521,27.0993209 17.04036,42.3372079 1.56405,9.113394 1.75464,26.339635 0.39009,35.257485 -2.16978,14.180254 -6.98916,29.379989 -13.68316,43.154939 l -3.46534,7.13099 4.63944,4.51172 c 23.59319,22.94368 39.573,54.76133 44.21386,88.03491 1.34871,9.66981 1.56964,29.82702 0.4171,38.05367 -1.08848,7.76933 -3.93658,21.08981 -4.49153,21.00681 -0.26122,-0.0391 -12.5066,-12.62828 -27.21196,-27.97604 z"
+     style="fill:#668000;stroke-width:0.766467;filter:url(#filter1067)" />
+</svg>
