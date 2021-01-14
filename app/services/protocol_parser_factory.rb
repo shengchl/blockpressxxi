@@ -22,6 +22,7 @@ class ProtocolParserFactory
       data_ptr = data_ptr + next_bytes_or_op_code*2
       params.push(argument_data)
     end
+    p  "#{params} PARAMS"
     params
   end
 
@@ -96,9 +97,6 @@ class ProtocolParserFactory
 
   def self.create_entity(hex, created_by_address)
     created_by_address = created_by_address.gsub('bitcoincash:', '')
-    p created_by_address
-    p created_by_address.size
-    p hex
     raise ProtocolParserError.new if created_by_address.size != 42
     raise ProtocolParserError.new if '6a' != hex[0..1]
 

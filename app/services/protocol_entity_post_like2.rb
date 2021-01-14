@@ -8,7 +8,7 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
 
     @reply_to_tx_id_big_endian =  @reply_to_tx_id.chars.each_slice(2).map{|f,s| f + s}.reverse.join
 
-    raise ProtocolEntity2::DomainError.new if @reply_to_tx_id.length != 64
+   # raise ProtocolEntity2::DomainError.new if @reply_to_tx_id.length != 64
 
     {
         reply_to_tx_id: @reply_to_tx_id_big_endian,
@@ -117,7 +117,7 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
     entity.action_tx_block_id = block_id
     puts 'about to add like post...' + @txhash
     entity.action_tx_is_mempool = 0
-    entity.reply_to_tx_id = @reply_to_tx_id_big_endian
+    entity.reply_to_tx_id = @reply_to_tx_id
     entity.is_like = 1
     entity.post_body = @post_body
     entity.tip_amount = @like_data[:output_value] unless @like_data.blank?

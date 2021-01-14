@@ -31,6 +31,8 @@ class BlockSyncService
 
     # grab the addres
     address_id = data['vout'][txid_vout_num]['scriptPubKey']['addresses'][0][12..-1]
+
+    p "address id is #{address_id}; called from #{__method__} (#{File.dirname(__FILE__)}"
     return address_id
   end
 
@@ -39,10 +41,10 @@ class BlockSyncService
 
     found_matching_tx = false
     txdata['vout'].each do |vout|
-      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
-        found_matching_tx = true
-        break
-      elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
+      # if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
+      #   found_matching_tx = true
+      #   break
+      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
         found_matching_tx = true
         break
       end
@@ -74,6 +76,27 @@ class BlockSyncService
       #     puts 'PROTOCOL ERROR SYNCTX: ' + e.to_s
       #     next
       #   end
+
+      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
+        op_return_hex = vout['scriptPubKey']['hex']
+        memo_action_cmd = op_return_hex[4..7]
+        first_payload_pushdata = op_return_hex[8..9]
+
+        case memo_action_cmd[2..3]
+        when '04'
+          puts "'04'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+          puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ going to skip action!' if first_payload_pushdata != '20'
+          next if first_payload_pushdata != '20'
+        when '03'
+          next if first_payload_pushdata != '20'
+        when '06'
+          next if first_payload_pushdata != '14'
+        when '07'
+          next if first_payload_pushdata != '14' 
+        end
+      end
+        
+      
       if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
         begin
           # 000000000000000000062643ae96a33ee22255715bd7395e86c513dbb73a23ff

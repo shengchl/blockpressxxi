@@ -13,6 +13,7 @@
                         <div class="post-author-details">
                             <span class="post-author-link truncate-address" (click)="gotoProfile($event)" [title]="postAuthorName">
                                     {{ postAuthorName | truncate:[20, '...'] }}
+
                             </span>
                             <a (click)="gotoProfile($event)" class="post-author-address text-muted truncate-address-short" [title]="postAuthorAddress">
                                     {{ postAuthorAddress | truncate:[20, '...'] }}
