@@ -15,15 +15,25 @@ class ProtocolEntityUnfollow2 < ProtocolEntity2
   def decode_entity(cmd, payload)
     raise ProtocolParserFactory::ProtocolParserError if cmd != ProtocolEntity2::OP_PREFIX + PREFIX
 
-    arg1unpacked = [@args.first].pack('H*')
+    arg1unpacked = @args.first#].pack('H*')
+    # arg1unpacked = [@args.first].pack('H*')
     
-    if arg1unpacked[0..11] == 'bitcoincash:'
-      @follow_address = arg1unpacked.gsub('bitcoincash:', '')
-    elsif arg1unpacked.first == '1'
-      @follow_address = Cashaddress.from_legacy(arg1unpacked).gsub('bitcoincash:', '')
-    else
-      raise "Invalid payload"
-    end
+    # if arg1unpacked[0..11] == 'bitcoincash:'
+    #   @follow_address = arg1unpacked.gsub('bitcoincash:', '')
+    # elsif arg1unpacked.first == '1'
+    #   @follow_address = Cashaddress.from_legacy(arg1unpacked).gsub('bitcoincash:', '')
+    # else
+    #   raise "Invalid payload"
+    # end
+
+    hash160address = @args.first
+
+    hash160address_bytes = hash160address.chars.each_slice(2).to_a.map{|f,s| (f + s) }.map{|e| e.to_i(16)}
+
+    old_address = Cashaddress.make_old_address(hash160address_bytes, 0x00)
+
+    @follow_address = Cashaddress.from_legacy(old_address).gsub('bitcoincash:', '')
+    
     {
         follow_address: @follow_address
     }

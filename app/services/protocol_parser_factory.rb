@@ -1,5 +1,3 @@
-
-
 class ProtocolParserFactory
   class ProtocolParserError < StandardError
   end
@@ -98,12 +96,17 @@ class ProtocolParserFactory
 
   def self.create_entity(hex, created_by_address)
     created_by_address = created_by_address.gsub('bitcoincash:', '')
+    p created_by_address
+    p created_by_address.size
+    p hex
     raise ProtocolParserError.new if created_by_address.size != 42
     raise ProtocolParserError.new if '6a' != hex[0..1]
 
     command_len_push = hex[2..3]
     cmd = hex[4..7]
     payload = hex[8..-1]
+
+    p "command_len_push is #{command_len_push}, cmd is #{cmd}, payload is #{payload}"
     if cmd == ProtocolEntity2::OP_PREFIX + '01'
       return ProtocolEntitySetName2.new(cmd, payload, created_by_address)
     end
@@ -132,21 +135,34 @@ class ProtocolParserFactory
       return ProtocolEntityUnfollow2.new(cmd, payload, created_by_address)
     end
 
-    if cmd == ProtocolEntity2::OP_PREFIX + '08'
-      return ProtocolEntitySetProfileHeader2.new(cmd, payload, created_by_address)
-    end
+    # if cmd == ProtocolEntity2::OP_PREFIX + '08'
+    #   return ProtocolEntitySetProfileHeader2.new(cmd, payload, created_by_address)
+    # end
 
-    if cmd == ProtocolEntity2::OP_PREFIX + '09'
-      return ProtocolEntityPostMedia2.new(cmd, payload, created_by_address)
-    end
+    # if cmd == ProtocolEntity2::OP_PREFIX + '09'
+    #   return ProtocolEntityPostMedia2.new(cmd, payload, created_by_address)
+    # end
 
-    if cmd == ProtocolEntity2::OP_PREFIX + '10'
+    # if cmd == ProtocolEntity2::OP_PREFIX + '10'
+    #   return ProtocolEntitySetProfileAvatar2.new(cmd, payload, created_by_address)
+    # end
+
+
+    ## Added memo impl
+    if cmd == ProtocolEntity2::OP_PREFIX + '0a'
       return ProtocolEntitySetProfileAvatar2.new(cmd, payload, created_by_address)
     end
+    ## 
+    
+    # if cmd == ProtocolEntity2::OP_PREFIX + '11'
+    #   return ProtocolEntityPostCommunity2.new(cmd, payload, created_by_address)
+    # end
 
-    if cmd == ProtocolEntity2::OP_PREFIX + '11'
+    ## Added memo impl
+    if cmd == ProtocolEntity2::OP_PREFIX + '0c'
       return ProtocolEntityPostCommunity2.new(cmd, payload, created_by_address)
     end
+    ##
 
     raise ProtocolParserError.new
   end

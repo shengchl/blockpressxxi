@@ -14,15 +14,43 @@ class ProtocolEntityFollow2 < ProtocolEntity2
   def decode_entity(cmd, payload)
     raise ProtocolParserFactory::ProtocolParserError if cmd != ProtocolEntity2::OP_PREFIX + PREFIX
 
-    arg1unpacked = [@args.first].pack('H*')
+    arg1unpacked = @args.first#].pack('H*')
+
+    p "args first is #{@args.first}"
+    p "Supposed hash160address is #{arg1unpacked}"
+
+    p arg1unpacked.length / 2
+    ##
+    # suppose we have a HASH 160 arg1unpacked (memo style):
+
+    hash160address = @args.first
+
+    hash160address_bytes = hash160address.chars.each_slice(2).to_a.map{|f,s| (f + s) }.map{|e| e.to_i(16)}
+    # @follow_address = Cashaddress.make_cashaddress(1, hash160address.bytes, true)
+    # p "Supposed memo address is #{@follow_address}"
+
+    # :TODO: check payload size 
+    old_address = Cashaddress.make_old_address(hash160address_bytes, 0x00)
+
     
-    if arg1unpacked[0..11] == 'bitcoincash:'
-      @follow_address = arg1unpacked.gsub('bitcoincash:', '')
-    elsif arg1unpacked.first == '1'
-      @follow_address = Cashaddress.from_legacy(arg1unpacked).gsub('bitcoincash:', '')
-    else
-      raise "Invalid payload"
-    end
+    @follow_address = Cashaddress.from_legacy(old_address).gsub('bitcoincash:', '')
+    p "Legacy address is #{old_address}"
+    # @follow_address3 = Cashaddress.to_legacy(@follow_address2)
+    # p "Supposed memo address3 is #{@follow_address3}"
+    
+    ##
+    
+    ##
+    # blockpress style
+    # if arg1unpacked[0..11] == 'bitcoincash:'
+    #   @follow_address = arg1unpacked.gsub('bitcoincash:', '')
+    # elsif arg1unpacked.first == '1'
+    #   @follow_address = Cashaddress.from_legacy(arg1unpacked).gsub('bitcoincash:', '')
+    # else
+    #   raise "Invalid payload"
+    # end
+    #
+    
     {
         follow_address: @follow_address
     }

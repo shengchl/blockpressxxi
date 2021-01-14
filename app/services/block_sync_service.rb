@@ -39,10 +39,10 @@ class BlockSyncService
 
     found_matching_tx = false
     txdata['vout'].each do |vout|
-      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(8d)/
+      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
         found_matching_tx = true
         break
-      elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a028d/
+      elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
         found_matching_tx = true
         break
       end
@@ -58,23 +58,23 @@ class BlockSyncService
     parsed_entity = nil
 
     tx['vout'].each do |vout|
-      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(8d)/
-        begin
-          parsed_entity = ProtocolParserFactory.create_entity(vout['scriptPubKey']['hex'], created_by_address)
-          puts "Matching hex: #{vout['scriptPubKey']['hex']}"
-          # If it is a like, then recreate
-          #if parsed_entity.instance_of? ProtocolEntityPostLike
-           # parsed_entity = ProtocolEntityPostLike.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
-          #end
-          if parsed_entity.instance_of? ProtocolEntityPostLike2
-            parsed_entity = ProtocolEntityPostLike2.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
-          end
-          break
-        rescue ProtocolParserFactory::ProtocolParserError => e
-          puts 'PROTOCOL ERROR SYNCTX: ' + e.to_s
-          next
-        end
-      elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a028d/
+      # if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
+      #   begin
+      #     parsed_entity = ProtocolParserFactory.create_entity(vout['scriptPubKey']['hex'], created_by_address)
+      #     puts "Matching hex: #{vout['scriptPubKey']['hex']}"
+      #     # If it is a like, then recreate
+      #     #if parsed_entity.instance_of? ProtocolEntityPostLike
+      #      # parsed_entity = ProtocolEntityPostLike.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
+      #     #end
+      #     if parsed_entity.instance_of? ProtocolEntityPostLike2
+      #       parsed_entity = ProtocolEntityPostLike2.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
+      #     end
+      #     break
+      #   rescue ProtocolParserFactory::ProtocolParserError => e
+      #     puts 'PROTOCOL ERROR SYNCTX: ' + e.to_s
+      #     next
+      #   end
+      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
         begin
           # 000000000000000000062643ae96a33ee22255715bd7395e86c513dbb73a23ff
           parsed_entity = ProtocolParserFactory.create_entity(vout['scriptPubKey']['hex'],
@@ -99,12 +99,15 @@ class BlockSyncService
   end
 
   def self.perform_sync(block_hash)
+    puts "TRY TO PERFORM SYNC #{block_hash}"
     request = "#{Rails.configuration.app[:block_syncer_url]}/rest/block/#{block_hash}.json"
     response = RestClient.get request
     if response.code != 200
       return {status: 'api error fetch'}
     end
     data = JSON.parse response.body
+
+    # puts "raw response body is #{data['tx']}"
 
     block_time = data['mediantime']
     tx_count = 0
@@ -119,15 +122,16 @@ class BlockSyncService
         end
         found_matching_tx = false
         tx['vout'].each do |vout|
-          if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(8d)/
+          if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
             found_matching_tx = true
             break
-          elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a028d/
+          elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
             found_matching_tx = true
             break
           end
         end
 
+        p "FOUND MATCHING TX IS #{found_matching_tx}"
         if found_matching_tx
           self.sync_tx!(tx, data['height'], false, data['mediantime'])
           tx_count = tx_count + 1
@@ -167,7 +171,7 @@ class BlockSyncService
         sync_stat.last_block_sync_status = 'OK repeat'
         sync_stat.save
         puts 'All caught up , exitting'
-        sleep 3
+        sleep 0.1
       end
     rescue => e
       puts e.backtrace

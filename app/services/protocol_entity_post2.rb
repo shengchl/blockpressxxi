@@ -7,6 +7,10 @@ class ProtocolEntityPost2 < ProtocolEntity2
     raise ProtocolParserFactory::ProtocolParserError if cmd != ProtocolEntity2::OP_PREFIX + PREFIX
 
     arg1unpacked = [@args.first].pack('H*')
+
+    puts 'args first is...' + @args.first
+    p 'arg1unpacked is ' + [@args.first].pack('H*') 
+    
     @post_body = arg1unpacked
     {
         post_body: arg1unpacked
@@ -48,11 +52,26 @@ class ProtocolEntityPost2 < ProtocolEntity2
     address = ProtocolEntity2.get_address_ident(@created_by_address)
 
     entity = AddressPost.find_or_create_by!(:address_id => @created_by_address, :action_tx => @txhash)
+    puts "ENTITY IS #{entity.id}, address_id #{@created_by_address}, action_tx #{@txhash}, block_id: #{block_id}, body: #{@post_body}"
     entity.action_tx = @txhash
     entity.action_tx_block_id = block_id
     entity.action_tx_is_mempool = 0
     entity.post_body = @post_body
     entity.post_created_at = block_time
+
+    # p @post_body
+
+    # t = "\x89"
+
+    # puts "#{t} equals #{@post_body.force_encoding(Encoding::UTF_8)}?"
+    # t == @post_body
+    
+    # p t.valid_encoding?
+    # p @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
+
+    # skip post if post body is not a valid utf8
+    return unless @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
+    
     begin
       entity.save
     rescue => e
@@ -63,4 +82,5 @@ class ProtocolEntityPost2 < ProtocolEntity2
     hashtags = @post_body.scan(/#\w+/).flatten
     ProtocolEntityPost2.create_and_attach_hashtags(@txhash, hashtags)
   end
+  
 end
