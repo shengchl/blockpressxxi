@@ -1,5 +1,5 @@
 class ProtocolEntitySetProfileAvatar2 < ProtocolEntity2
-  PREFIX = '10'
+  PREFIX = '0a'
 
   def decode_entity(cmd, payload)
     raise ProtocolParserFactory::ProtocolParserError if cmd != ProtocolEntity2::OP_PREFIX + PREFIX

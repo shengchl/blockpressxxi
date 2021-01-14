@@ -8,3 +8,4 @@ public/assets/
 vendor/bip_mnemonic-master/.gitbackup
 vendor/money-tree-master/.gitbackup
 .idea/
+config/database.yml

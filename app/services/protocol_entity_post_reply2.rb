@@ -5,14 +5,23 @@ class ProtocolEntityPostReply2 < ProtocolEntity2
     raise ProtocolParserFactory::ProtocolParserError if cmd != ProtocolEntity2::OP_PREFIX + PREFIX
 
     @reply_to_tx_id = @args.first
+
+    @reply_to_tx_id_big_endian =  @reply_to_tx_id.chars.each_slice(2).map{|f,s| f + s}.reverse.join
+
+    puts <<-S 
+                  @reply_to_tx_id is #{@reply_to_tx_id}. called from #{self.class}
+       @reply_to_tx_id_big_endian is #{@reply_to_tx_id_big_endian}. called from #{self.class}
+      S
+    
     raise ProtocolEntity2::DomainError.new if @reply_to_tx_id.length != 64
     arg2unpacked = [@args.second].pack('H*')
     @post_body = arg2unpacked
     {
         post_body: @post_body,
-        reply_to_tx_id: @reply_to_tx_id,
+        reply_to_tx_id: @reply_to_tx_id_big_endian,
     }
   end
+
 
   def get_complete_command
     return ProtocolEntity2::OP_PREFIX + PREFIX
@@ -29,7 +38,7 @@ class ProtocolEntityPostReply2 < ProtocolEntity2
   end
 
   def get_params
-    [@reply_to_tx_id, @post_body]
+    [@reply_to_tx_id_big_endian, @post_body]
   end
 
 
@@ -38,7 +47,7 @@ class ProtocolEntityPostReply2 < ProtocolEntity2
       raise ProtocolEntity2::DomainError.new
     end
 
-    if @reply_to_tx_id.blank? || @reply_to_tx_id.length != 64
+    if @reply_to_tx_id_big_endian.blank? || @reply_to_tx_id_big_endian.length != 64
       raise ProtocolEntity2::DomainError.new
     end
 
@@ -49,7 +58,7 @@ class ProtocolEntityPostReply2 < ProtocolEntity2
       entity.action_tx = @txhash
       entity.action_tx_block_id = block_id
       entity.action_tx_is_mempool = 0
-      entity.reply_to_tx_id = @reply_to_tx_id
+      entity.reply_to_tx_id = @reply_to_tx_id_big_endian
       entity.post_body = @post_body
       entity.post_created_at = block_time
       entity.save!

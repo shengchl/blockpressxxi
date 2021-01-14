@@ -1,5 +1,5 @@
 class ProtocolEntity2
-  OP_PREFIX = '8d'
+  OP_PREFIX = '6d'
 
   class DomainError < StandardError
   end
@@ -24,7 +24,7 @@ class ProtocolEntity2
     @command = command
     @args = ProtocolParserFactory::get_params_array(payload)
     @decoded_entity = self.decode_entity(command, payload)
-    puts "HEX IS #{@hex}"
+    puts "HEX IS #{@hex} #{self.class}"
     puts "Payload IS #{@payload}"
   end
 
@@ -32,6 +32,7 @@ class ProtocolEntity2
     address = AddressIdent.find_by_address_id(address_id)
     if address.blank?
       # Make sure to get the legacy format
+      p "address_id is #{address_id}; #{self.class}"
       legacy = Cashaddress.to_legacy('bitcoincash:' + address_id.to_s)
       address = AddressIdent.find_or_create_by!({
                                                     :address_id => address_id,

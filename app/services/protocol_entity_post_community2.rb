@@ -1,5 +1,5 @@
 class ProtocolEntityPostCommunity2 < ProtocolEntity2
-  PREFIX = '11'
+  PREFIX = '0c'
   attr_reader :community_name
   attr_reader :post_body
 

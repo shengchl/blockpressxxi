@@ -5,10 +5,13 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
     raise ProtocolParserFactory::ProtocolParserError if cmd != ProtocolEntity2::OP_PREFIX + PREFIX
 
     @reply_to_tx_id = @args.first
+
+    @reply_to_tx_id_big_endian =  @reply_to_tx_id.chars.each_slice(2).map{|f,s| f + s}.reverse.join
+
     raise ProtocolEntity2::DomainError.new if @reply_to_tx_id.length != 64
 
     {
-        reply_to_tx_id: @reply_to_tx_id,
+        reply_to_tx_id: @reply_to_tx_id_big_endian,
     }
   end
 
@@ -17,7 +20,7 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
   end
 
   def get_params
-    [@reply_to_tx_id, @post_body]
+    [@reply_to_tx_id_big_endian, @post_body]
   end
 
   def self.from_entity(entity, created_by_address)
@@ -34,7 +37,8 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
     constructed_entity = nil
     found_tipped_user_vout = nil
     vouts.each do |vout|
-      if vout['scriptPubKey'] && (vout['scriptPubKey']['hex'] =~ /^6a4c..(8d)/ || vout['scriptPubKey']['hex'] =~ /^6a028d/)
+      # if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
+      if vout.dig('scriptPubKey', 'hex') =~ /^6a026d/
         parsed_entity = ProtocolParserFactory.create_entity(vout['scriptPubKey']['hex'],
                                                             created_by_address)
         puts "Matching published hex: #{vout['scriptPubKey']['hex']}"
@@ -102,7 +106,7 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
       raise ProtocolEntity2::DomainError.new
     end
 
-    if @reply_to_tx_id.blank? || @reply_to_tx_id.length != 64
+    if @reply_to_tx_id_big_endian.blank? || @reply_to_tx_id_big_endian.length != 64
       raise ProtocolEntity2::DomainError.new
     end
 
@@ -113,7 +117,7 @@ class ProtocolEntityPostLike2 < ProtocolEntity2
     entity.action_tx_block_id = block_id
     puts 'about to add like post...' + @txhash
     entity.action_tx_is_mempool = 0
-    entity.reply_to_tx_id = @reply_to_tx_id
+    entity.reply_to_tx_id = @reply_to_tx_id_big_endian
     entity.is_like = 1
     entity.post_body = @post_body
     entity.tip_amount = @like_data[:output_value] unless @like_data.blank?
