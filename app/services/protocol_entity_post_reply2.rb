@@ -13,7 +13,7 @@ class ProtocolEntityPostReply2 < ProtocolEntity2
        @reply_to_tx_id_big_endian is #{@reply_to_tx_id_big_endian}. called from #{self.class}
       S
     
-    raise ProtocolEntity2::DomainError.new if @reply_to_tx_id.length != 64
+    return if @reply_to_tx_id.length != 64
     arg2unpacked = [@args.second].pack('H*')
     @post_body = arg2unpacked
     {
