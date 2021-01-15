@@ -13,19 +13,19 @@
 
 ActiveRecord::Schema.define(version: 20180509011237) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "account_managers", force: :cascade do |t|
-    t.integer  "account_id"
-    t.integer  "user_id"
+    t.integer  "account_id", limit: 4
+    t.integer  "user_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "account_managers", ["account_id"], name: "fk_rails_6e3233ae51", using: :btree
+  add_index "account_managers", ["user_id"], name: "fk_rails_8da05acefe", using: :btree
+
   create_table "accounts", force: :cascade do |t|
-    t.string   "account_guid", null: false
-    t.string   "site_name",    null: false
+    t.string   "account_guid", limit: 255, null: false
+    t.string   "site_name",    limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 20180509011237) do
 
   create_table "address_followings", force: :cascade do |t|
     t.string   "action_tx",            limit: 80, null: false
-    t.integer  "action_tx_block_id"
-    t.integer  "action_tx_is_mempool"
+    t.integer  "action_tx_block_id",   limit: 4
+    t.integer  "action_tx_is_mempool", limit: 4
     t.string   "follower_address_id",  limit: 80, null: false
     t.string   "following_address_id", limit: 80, null: false
-    t.integer  "deleted",                         null: false
+    t.integer  "deleted",              limit: 4,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,21 +60,21 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   create_table "address_idents", force: :cascade do |t|
     t.string   "address_id",                    limit: 50,  null: false
     t.string   "name",                          limit: 76
-    t.string   "set_profile_name_tx"
-    t.integer  "set_profile_name_block_id"
-    t.integer  "set_profile_name_is_mempool"
+    t.string   "set_profile_name_tx",           limit: 255
+    t.integer  "set_profile_name_block_id",     limit: 4
+    t.integer  "set_profile_name_is_mempool",   limit: 4
     t.string   "bio",                           limit: 220
-    t.string   "set_profile_bio_tx"
-    t.integer  "set_profile_bio_block_id"
-    t.integer  "set_profile_bio_is_mempool"
-    t.string   "avatar"
-    t.string   "set_profile_avatar_tx"
-    t.integer  "set_profile_avatar_block_id"
-    t.integer  "set_profile_avatar_is_mempool"
-    t.string   "header"
-    t.string   "set_profile_header_tx"
-    t.integer  "set_profile_header_block_id"
-    t.integer  "set_profile_header_is_mempool"
+    t.string   "set_profile_bio_tx",            limit: 255
+    t.integer  "set_profile_bio_block_id",      limit: 4
+    t.integer  "set_profile_bio_is_mempool",    limit: 4
+    t.string   "avatar",                        limit: 255
+    t.string   "set_profile_avatar_tx",         limit: 255
+    t.integer  "set_profile_avatar_block_id",   limit: 4
+    t.integer  "set_profile_avatar_is_mempool", limit: 4
+    t.string   "header",                        limit: 255
+    t.string   "set_profile_header_tx",         limit: 255
+    t.integer  "set_profile_header_block_id",   limit: 4
+    t.integer  "set_profile_header_is_mempool", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,12 +84,12 @@ ActiveRecord::Schema.define(version: 20180509011237) do
 
   create_table "address_images", force: :cascade do |t|
     t.string   "action_tx",            limit: 70
-    t.integer  "action_tx_block_id"
-    t.integer  "action_tx_is_mempool"
+    t.integer  "action_tx_block_id",   limit: 4
+    t.integer  "action_tx_is_mempool", limit: 4
     t.string   "address_id",           limit: 50,  null: false
     t.string   "caption",              limit: 217
     t.string   "image_link_or_ipfs",   limit: 217
-    t.integer  "image_created_at"
+    t.integer  "image_created_at",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 20180509011237) do
 
   create_table "address_likes", force: :cascade do |t|
     t.string   "action_tx",               limit: 80, null: false
-    t.integer  "action_tx_block_id"
-    t.integer  "action_tx_is_mempool"
+    t.integer  "action_tx_block_id",      limit: 4
+    t.integer  "action_tx_is_mempool",    limit: 4
     t.string   "liker_address_id",        limit: 80, null: false
     t.string   "tip_receiver_address_id", limit: 80
     t.string   "like_tx",                 limit: 80, null: false
@@ -129,8 +129,8 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   create_table "address_post_pay_outputs", force: :cascade do |t|
     t.string   "action_tx",         limit: 70, null: false
     t.string   "output_address_id", limit: 50, null: false
-    t.integer  "output_value",                 null: false
-    t.integer  "output_number",                null: false
+    t.integer  "output_value",      limit: 4,  null: false
+    t.integer  "output_number",     limit: 4,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 20180509011237) do
     t.string   "repost_tx_id",        limit: 80, null: false
     t.string   "reposted_post_tx_id", limit: 80, null: false
     t.string   "address_id",          limit: 80, null: false
-    t.integer  "repost_created_at"
-    t.integer  "block_id_synced"
+    t.integer  "repost_created_at",   limit: 4
+    t.integer  "block_id_synced",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -156,22 +156,22 @@ ActiveRecord::Schema.define(version: 20180509011237) do
 
   create_table "address_posts", force: :cascade do |t|
     t.string   "action_tx",            limit: 70
-    t.integer  "action_tx_block_id"
-    t.integer  "action_tx_is_mempool"
+    t.integer  "action_tx_block_id",   limit: 4
+    t.integer  "action_tx_is_mempool", limit: 4
     t.string   "address_id",           limit: 50,              null: false
     t.string   "post_body",            limit: 220
-    t.string   "post_image_ipfs"
+    t.string   "post_image_ipfs",      limit: 255
     t.string   "reply_to_tx_id",       limit: 70
-    t.integer  "is_like",                          default: 0, null: false
-    t.integer  "post_created_at"
+    t.integer  "is_like",              limit: 4,   default: 0, null: false
+    t.integer  "post_created_at",      limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "community",            limit: 80
-    t.integer  "media_type"
-    t.string   "media_payload"
-    t.integer  "sequence"
-    t.integer  "tip_amount"
-    t.string   "tip_address_id"
+    t.integer  "media_type",           limit: 4
+    t.string   "media_payload",        limit: 255
+    t.integer  "sequence",             limit: 4
+    t.integer  "tip_amount",           limit: 4
+    t.string   "tip_address_id",       limit: 255
   end
 
   add_index "address_posts", ["action_tx"], name: "addy_posts_atx_idx", unique: true, using: :btree
@@ -184,13 +184,13 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   add_index "address_posts", ["sequence"], name: "index_address_posts_on_sequence", using: :btree
 
   create_table "broadcast_transactions", force: :cascade do |t|
-    t.string   "txhash",             limit: 80, null: false
-    t.text     "raw_tx",                        null: false
-    t.text     "obj_tx",                        null: false
-    t.integer  "is_success"
-    t.integer  "attempt_count"
-    t.string   "last_attempt_error"
-    t.integer  "last_attempted_at"
+    t.string   "txhash",             limit: 80,    null: false
+    t.text     "raw_tx",             limit: 65535, null: false
+    t.text     "obj_tx",             limit: 65535, null: false
+    t.integer  "is_success",         limit: 4
+    t.integer  "attempt_count",      limit: 4
+    t.string   "last_attempt_error", limit: 255
+    t.integer  "last_attempted_at",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -201,24 +201,26 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   add_index "broadcast_transactions", ["txhash"], name: "index_broadcast_transactions_on_txhash", unique: true, using: :btree
 
   create_table "identities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "token"
-    t.string   "secret"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.integer  "user_id",            limit: 4
+    t.string   "provider",           limit: 255
+    t.string   "uid",                limit: 255
+    t.string   "token",              limit: 255
+    t.string   "secret",             limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.string   "user_name"
+    t.string   "user_name",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "identities", ["user_id"], name: "fk_rails_5373344100", using: :btree
+
   create_table "local_spent_utxos", force: :cascade do |t|
     t.string   "address",       limit: 80, null: false
     t.string   "txhash",        limit: 80, null: false
-    t.integer  "output_number",            null: false
+    t.integer  "output_number", limit: 4,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -228,14 +230,14 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   add_index "local_spent_utxos", ["txhash"], name: "index_local_spent_utxos_on_txhash", using: :btree
 
   create_table "mempool_utxo_by_address", force: :cascade do |t|
-    t.string   "address",       limit: 80, null: false
-    t.string   "txhash",        limit: 80, null: false
-    t.string   "script_hex",               null: false
-    t.integer  "output_number",            null: false
-    t.text     "obj_tx"
-    t.integer  "value",         limit: 8,  null: false
-    t.integer  "descendants"
-    t.integer  "fee_value"
+    t.string   "address",       limit: 80,    null: false
+    t.string   "txhash",        limit: 80,    null: false
+    t.string   "script_hex",    limit: 255,   null: false
+    t.integer  "output_number", limit: 4,     null: false
+    t.text     "obj_tx",        limit: 65535
+    t.integer  "value",         limit: 8,     null: false
+    t.integer  "descendants",   limit: 4
+    t.integer  "fee_value",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -245,36 +247,38 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   add_index "mempool_utxo_by_address", ["txhash"], name: "mempool_tx_txhash", using: :btree
 
   create_table "network_connections", force: :cascade do |t|
-    t.string   "network",            null: false
-    t.string   "uid",                null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.string   "network",            limit: 255, null: false
+    t.string   "uid",                limit: 255, null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
-    t.string   "handle",             null: false
-    t.string   "token"
-    t.string   "secret"
-    t.string   "twitter_type"
-    t.string   "twitter_dest"
-    t.string   "facebook_type"
-    t.string   "facebook_dest"
-    t.integer  "connection_ok",      null: false
-    t.string   "last_error"
-    t.integer  "account_id",         null: false
+    t.string   "handle",             limit: 255, null: false
+    t.string   "token",              limit: 255
+    t.string   "secret",             limit: 255
+    t.string   "twitter_type",       limit: 255
+    t.string   "twitter_dest",       limit: 255
+    t.string   "facebook_type",      limit: 255
+    t.string   "facebook_dest",      limit: 255
+    t.integer  "connection_ok",      limit: 4,   null: false
+    t.string   "last_error",         limit: 255
+    t.integer  "account_id",         limit: 4,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "network_connections", ["account_id"], name: "fk_rails_cb1738281e", using: :btree
+
   create_table "sync_stats", force: :cascade do |t|
-    t.string   "next_block_to_sync",     null: false
-    t.string   "last_block_sync_status", null: false
+    t.string   "next_block_to_sync",     limit: 255, null: false
+    t.string   "last_block_sync_status", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "unspent_utxos", force: :cascade do |t|
-    t.string   "address",    limit: 80, null: false
-    t.text     "raw_data",              null: false
+    t.string   "address",    limit: 80,    null: false
+    t.text     "raw_data",   limit: 65535, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -282,30 +286,30 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   add_index "unspent_utxos", ["address"], name: "index_unspent_utxos_on_address", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "encrypted_password",                 default: "", null: false
+    t.string   "encrypted_password",     limit: 255,   default: "", null: false
     t.string   "reset_password_token",   limit: 160
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,     default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.string   "confirmation_token",     limit: 160
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "username",               limit: 80,               null: false
-    t.text     "wallet_phrase"
-    t.integer  "last_child_node_i"
-    t.text     "masterxpub"
-    t.string   "wif"
+    t.string   "unconfirmed_email",      limit: 255
+    t.string   "username",               limit: 80,                 null: false
+    t.text     "wallet_phrase",          limit: 65535
+    t.integer  "last_child_node_i",      limit: 4
+    t.text     "masterxpub",             limit: 65535
+    t.string   "wif",                    limit: 255
     t.string   "address_legacy",         limit: 80
     t.string   "address_legacy_hex",     limit: 80
     t.string   "address_cash",           limit: 80
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "badge_count"
+    t.integer  "badge_count",            limit: 4
   end
 
   add_index "users", ["address_cash"], name: "index_users_on_address_cash", using: :btree
@@ -316,9 +320,9 @@ ActiveRecord::Schema.define(version: 20180509011237) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "vins", force: :cascade do |t|
-    t.string   "parent_tx",  null: false
-    t.string   "vin_tx",     null: false
-    t.text     "vin_blob",   null: false
+    t.string   "parent_tx",  limit: 255,   null: false
+    t.string   "vin_tx",     limit: 255,   null: false
+    t.text     "vin_blob",   limit: 65535, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

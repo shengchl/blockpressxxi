@@ -478,7 +478,6 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    pg (0.21.0)
     phantomjs (1.9.7.1)
     popper_js (1.16.0)
     progress (3.5.2)
@@ -712,7 +711,6 @@ DEPENDENCIES
   open_uri_redirections
   openssl (~> 2.1.0)
   paperclip (= 4.3.6)
-  pg (~> 0.20)
   phantomjs (= 1.9.7.1)
   popper_js
   quiet_assets
@@ -748,3 +746,6 @@ DEPENDENCIES
   underscore-rails
   uri (= 0.10.0)
   zlib (= 1.1.0)
+
+BUNDLED WITH
+   2.1.4
