@@ -100,23 +100,15 @@ class PostsController < ApplicationController
   end
 
   def get_replies
-    if user_signed_in?
-      address_cash = current_user.address_cash
+      address_cash = current_user&.address_cash
       notes = Posts::GetPostReplies.run!(reply_to_tx_id: params[:tx_id])
       render json:  notes
-      return
-    end
-    render json:  {}, status: 403
   end
 
   def get_notifications
-    if user_signed_in?
-      address_cash = current_user.address_cash
+      address_cash = current_user&.address_cash
       notes = Posts::GetNotifications.run!(address: address_cash, offset_id: params[:offset_id], current_user_address_id: address_cash)
       render json:  notes
-      return
-    end
-    render json:  {}, status: 403
   end
 
   def search
@@ -125,13 +117,9 @@ class PostsController < ApplicationController
   end
 
   def get_reply_feed
-    if user_signed_in?
-      address_cash = current_user.address_cash
+      address_cash = current_user&.address_cash
       posts = Posts::GetReplyFeed.run!(address_id: address_cash, offset_id: params[:offset_id])
       render json:  posts
-      return
-    end
-    render json:  {}, status: 403
   end
 
   def create_reply
