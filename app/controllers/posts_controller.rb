@@ -143,7 +143,8 @@ class PostsController < ApplicationController
   end
 
   def get_community_posts
-    posts = Posts::GetCommunityPosts.run!(community_name: params[:q], offset_id: params[:offset_id].to_i)
+    community_name = params[:q] || params[:community_name]
+    posts = Posts::GetCommunityPosts.run!(community_name: community_name, offset_id: params[:offset_id].to_i)
     render json:  posts
   end
 
