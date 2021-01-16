@@ -84,6 +84,9 @@ class BlockSyncService
         tx_id = tx['txid']
         
         case memo_action_cmd[2..3]
+        when '01'
+          Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata >= '4c'.to_i(16) or first_payload_pushdata == '00'.to_i(16)
+          next if first_payload_pushdata >= '4c'.to_i(16) or first_payload_pushdata == '00'.to_i(16)
         when '04'
           Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
@@ -103,7 +106,6 @@ class BlockSyncService
           parsed_entity = ProtocolParserFactory.create_entity(op_return_hex,
                                                               created_by_address)
           puts "Matching hex: #{op_return_hex}"
-
           
           if parsed_entity.instance_of? ProtocolEntityPostLike2
             parsed_entity = ProtocolEntityPostLike2.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
