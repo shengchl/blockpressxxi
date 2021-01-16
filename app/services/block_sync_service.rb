@@ -81,41 +81,41 @@ class BlockSyncService
         op_return_hex = vout['scriptPubKey']['hex']
         memo_action_cmd = op_return_hex[4..7]
         first_payload_pushdata = op_return_hex[8..9]
-
+        tx_id = tx['txid']
+        
         case memo_action_cmd[2..3]
         when '04'
-          puts "'04'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-          puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ going to skip action!' if first_payload_pushdata != '20'
+          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
         when '03'
+          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
         when '06'
+          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
           next if first_payload_pushdata != '14'
         when '07'
+          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
           next if first_payload_pushdata != '14' 
         end
-      end
-        
-      
-      if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
+
         begin
           # 000000000000000000062643ae96a33ee22255715bd7395e86c513dbb73a23ff
-          parsed_entity = ProtocolParserFactory.create_entity(vout['scriptPubKey']['hex'],
+          parsed_entity = ProtocolParserFactory.create_entity(op_return_hex,
                                                               created_by_address)
-          puts "Matching hex: #{vout['scriptPubKey']['hex']}"
-          # If it is a like, then recreate
-          #if parsed_entity.instance_of? ProtocolEntityPostLike
-           # parsed_entity = ProtocolEntityPostLike.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
-          #end
+          puts "Matching hex: #{op_return_hex}"
+
+          
           if parsed_entity.instance_of? ProtocolEntityPostLike2
             parsed_entity = ProtocolEntityPostLike2.extract_vout_and_return_decoded_entity(tx['vout'], created_by_address)
           end
+          
           break
         rescue ProtocolParserFactory::ProtocolParserError => e
           puts 'PROTOCOL ERROR SYNCTX: ' + e.to_s
           next
         end
       end
+        
     end
     puts 'parsed entity is null' + tx['txid'] unless !parsed_entity.nil?
     parsed_entity.populate_domain!(tx['txid'], block_id, block_time, is_mempool) unless parsed_entity.nil?
@@ -128,7 +128,8 @@ class BlockSyncService
     if response.code != 200
       return {status: 'api error fetch'}
     end
-    data = JSON.parse response.body
+    data = JSON.parse(response.body)
+
 
     # puts "raw response body is #{data['tx']}"
 
@@ -140,21 +141,14 @@ class BlockSyncService
 
       data['tx'].each do |tx|
 
-        if tx['txid'] == 'c22dc0ab69a9a21c8e4d1ff429fd83d2790b4023789e387d87fdd61100cb0e4f'
-          i = 1
-        end
         found_matching_tx = false
         tx['vout'].each do |vout|
-          if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a4c..(6d)/
-            found_matching_tx = true
-            break
-          elsif vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
+          if vout['scriptPubKey'] && vout['scriptPubKey']['hex'] =~ /^6a026d/
             found_matching_tx = true
             break
           end
         end
 
-        p "FOUND MATCHING TX IS #{found_matching_tx}"
         if found_matching_tx
           self.sync_tx!(tx, data['height'], false, data['mediantime'])
           tx_count = tx_count + 1
@@ -164,7 +158,7 @@ class BlockSyncService
       end
     end
 
-    if !data['nextblockhash'].blank?
+    unless data['nextblockhash'].blank?
       return data['nextblockhash'], tx_count, tx_skipped
     end
 
