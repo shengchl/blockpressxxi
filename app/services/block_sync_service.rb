@@ -85,8 +85,11 @@ class BlockSyncService
         
         case memo_action_cmd[2..3]
         when '01'
-          Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata >= '4c'.to_i(16) or first_payload_pushdata == '00'.to_i(16)
-          next if first_payload_pushdata >= '4c'.to_i(16) or first_payload_pushdata == '00'.to_i(16)
+          if first_payload_pushdata.to_i(16) >= '4c'.to_i(16) or first_payload_pushdata.to_i(16) == '00'.to_i(16)
+            Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}"
+            next
+          end
+          # next if first_payload_pushdata.to_i(16) >= '4c'.to_i(16) or first_payload_pushdata.to_i(16) == '00'.to_i(16)
         when '04'
           Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
