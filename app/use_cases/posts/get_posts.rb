@@ -83,7 +83,9 @@ class Posts::GetPosts < ActiveInteraction::Base
                             isLike: post.is_like == 1 ? true : false,
                             isLikeTippedAmount: post.tip_amount,
                             isLikeTippedAddress: nil,
-                            community: !post.community.blank? && post.community != '' ? post.community : nil
+                            community: !post.community.blank? && post.community != '' ? post.community : nil,
+                            p2p_network_id: post.p2p_network_id,
+                            info_hash: post.info_hash
                         })
     end
     post_returns
