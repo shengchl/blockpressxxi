@@ -82,8 +82,12 @@ class BlockSyncService
         memo_action_cmd = op_return_hex[4..7]
         first_payload_pushdata = op_return_hex[8..9]
         tx_id = tx['txid']
-        
-        case memo_action_cmd[2..3]
+
+        memo_action_determinant = memo_action_cmd[2..3]
+
+        next if first_payload_pushdata.to_s.empty?
+
+        case memo_action_determinant
         when '01'
           if first_payload_pushdata.to_i(16) >= '4c'.to_i(16) or first_payload_pushdata.to_i(16) == '00'.to_i(16)
             Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}"

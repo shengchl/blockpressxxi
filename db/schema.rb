@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180509011237) do
+ActiveRecord::Schema.define(version: 20210116015504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 20180509011237) do
     t.integer  "sequence"
     t.integer  "tip_amount"
     t.string   "tip_address_id"
+    t.string   "info_hash"
+    t.integer  "p2p_network_id"
   end
 
   add_index "address_posts", ["action_tx"], name: "addy_posts_atx_idx", unique: true, using: :btree
