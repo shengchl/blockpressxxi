@@ -23,7 +23,7 @@ namespace :bch do
     # april 18th: 0000000000000000023c3c428449b68c0133752cc4e2fe541f6fbaf880f5429f
     while true
       BlockSyncService.sync_next_block!
-      sleep 0.01
+      sleep 0.1
     end
   end
   task :update_post_tips  => :environment do

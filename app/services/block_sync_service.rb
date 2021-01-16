@@ -85,16 +85,16 @@ class BlockSyncService
         
         case memo_action_cmd[2..3]
         when '04'
-          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
+          Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
         when '03'
-          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
+          Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
         when '06'
-          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
+          Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
           next if first_payload_pushdata != '14'
         when '07'
-          Rails.logger.warning "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
+          Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
           next if first_payload_pushdata != '14' 
         end
 
