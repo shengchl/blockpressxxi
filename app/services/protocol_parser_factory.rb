@@ -5,6 +5,8 @@ class ProtocolParserFactory
   OP_RETURN_CODE = '6a'
   OP_RETURN_CODE_PUSH_COMMAND = '02'
 
+  SUPPORTED_MEMO_ACTIONS = ["01", "02", "03", "04", "05", "06", "07", "0a", "0c"]
+
 
   def self.get_params_array(hex)
     params = []

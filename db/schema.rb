@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 20210116015504) do
     t.integer  "tip_amount"
     t.string   "tip_address_id"
     t.string   "info_hash"
-    t.integer  "p2p_network_id"
+    t.string   "p2p_network_id"
   end
 
   add_index "address_posts", ["action_tx"], name: "addy_posts_atx_idx", unique: true, using: :btree
