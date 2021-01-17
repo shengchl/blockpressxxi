@@ -99,7 +99,7 @@ class ProtocolEntityPostCommunity2 < ProtocolEntity2
       # skip error Incorrect string value: '\xA46\x16\xE6\xE6\xF7...' for colum
     end
     # Get hash tags and create them if needed, then link them
-    hashtags = @post_body.scan(/#\w+/).flatten
+    hashtags = @post_body.scan(/#\w+/).flatten.select{|hashtag| hashtag.length < 20}
     ProtocolEntityPost2.create_and_attach_hashtags(@txhash, hashtags)
   end
 end
