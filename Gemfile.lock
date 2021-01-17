@@ -447,7 +447,6 @@ GEM
     multipart-post (2.1.1)
     mutations (0.9.1)
       activesupport
-    mysql2 (0.4.10)
     nenv (0.3.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.1)
@@ -724,7 +723,6 @@ DEPENDENCIES
   miro
   money-tree
   mutations
-  mysql2 (~> 0.4.0)
   newrelic_rpm
   omniauth
   omniauth-facebook
@@ -771,3 +769,6 @@ DEPENDENCIES
   underscore-rails
   uri (= 0.10.0)
   zlib (= 1.1.0)
+
+BUNDLED WITH
+   2.1.4

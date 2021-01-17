@@ -87,6 +87,7 @@ class BlockSyncService
 
         next unless ProtocolParserFactory::SUPPORTED_MEMO_ACTIONS.include?(memo_action_determinant)
 
+
         next if first_payload_pushdata.to_s.empty?
 
         case memo_action_determinant
@@ -98,7 +99,6 @@ class BlockSyncService
             Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}"
             next
           end
-          # next if first_payload_pushdata.to_i(16) >= '4c'.to_i(16) or first_payload_pushdata.to_i(16) == '00'.to_i(16)
         when '04'
           Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '20'
           next if first_payload_pushdata != '20'
@@ -111,6 +111,8 @@ class BlockSyncService
         when '07'
           Rails.logger.info "going to skip action! #{first_payload_pushdata} in tx_id #{tx_id}" if first_payload_pushdata != '14'
           next if first_payload_pushdata != '14' 
+	when '0c'
+       	  next if first_payload_pushdata.to_i(16) >= '4c'.to_i(16) or first_payload_pushdata.to_i(16) == '00'.to_i(16)
         end
 
         begin
