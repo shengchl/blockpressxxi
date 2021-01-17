@@ -6,6 +6,7 @@ class ProtocolEntitySetProfileText2 < ProtocolEntity2
 
     @payload = payload
     arg1unpacked = [@args.first].pack('H*')
+    return unless arg1unpacked.force_encoding(Encoding::UTF_8).valid_encoding?
     @set_profile_text = arg1unpacked
     {
         text: arg1unpacked

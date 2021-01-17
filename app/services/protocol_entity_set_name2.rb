@@ -6,6 +6,7 @@ class ProtocolEntitySetName2 < ProtocolEntity2
 
     @payload = payload
     arg1unpacked = [@args.first].pack('H*')
+    return unless arg1unpacked.force_encoding(Encoding::UTF_8).valid_encoding?
     @set_name_name = arg1unpacked
     {
         name: @set_name_name

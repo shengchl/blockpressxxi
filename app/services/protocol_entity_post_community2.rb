@@ -14,6 +14,8 @@ class ProtocolEntityPostCommunity2 < ProtocolEntity2
     arg1unpacked = [@args.first].pack('H*')
     arg2unpacked = [@args.second].pack('H*')
 
+    return unless arg1unpacked.force_encoding(Encoding::UTF_8).valid_encoding? and arg2unpacked.force_encoding(Encoding::UTF_8).valid_encoding?	
+
     # BitTorrent extension for original Memo protocol
 
     # If payload contains network code and content hash, proceed to decoding

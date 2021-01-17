@@ -15,6 +15,7 @@ class ProtocolEntityPostReply2 < ProtocolEntity2
     
     return if @reply_to_tx_id.length != 64
     arg2unpacked = [@args.second].pack('H*')
+    return unless arg2unpacked.force_encoding(Encoding::UTF_8).valid_encoding?
     @post_body = arg2unpacked
     {
         post_body: @post_body,
