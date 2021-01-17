@@ -93,6 +93,8 @@ gem 'bip_mnemonic' , :path => "vendor/bip_mnemonic-master"
 gem 'rmagick', :require => 'rmagick'
 gem 'popper_js'
 
+gem 'transmission-ng', :git => 'git://github.com/m4rkw/transmission-ng.git'
+
 group :assets do
 
 end

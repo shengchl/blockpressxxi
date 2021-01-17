@@ -7,4 +7,3 @@ test:
 production:
   utxo_endpoint_url: http://ec2-35-162-156-151.us-west-2.compute.amazonaws.com:8081
   block_syncer_url: http://localhost:8332
-   
