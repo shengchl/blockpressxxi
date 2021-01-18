@@ -23,6 +23,7 @@ if RUBY_VERSION >= '2.7'
   gem 'forwardable', '1.3.1'
 end
 
+gem 'puma'
 gem 'openssl', '~> 2.1.0'
 gem 'arel', '6.0.0'
 gem 'rails', '4.2.11.3'
@@ -62,7 +63,6 @@ gem 'cashaddress'
 gem 'rest-client'
 gem 'cachy'
 gem 'actionpack-action_caching'
-#gem 'mysql2', '~> 0.4.0'#, '~> 0.3.18'
 gem 'pg', '~> 0.20'
 gem 'rqrcode'
 gem 'jquery-rails', '~> 2.1'
@@ -88,12 +88,14 @@ gem 'image_optim_pack'
 gem 'bitcoin-ruby'
 gem 'active_model_serializers'
 gem 'active_interaction', '>= 3.0'
-gem 'shortener' , :path => "vendor/shortener_caps"
-gem 'bip_mnemonic' , :path => "vendor/bip_mnemonic-master"
+#gem 'shortener' , :path => "vendor/shortener_caps"
+gem 'shortener'
+#gem 'bip_mnemonic' , :path => "vendor/bip_mnemonic"
+gem 'bip_mnemonic'
 gem 'rmagick', :require => 'rmagick'
 gem 'popper_js'
 
-gem 'transmission-ng', :git => 'git://github.com/m4rkw/transmission-ng.git'
+gem 'transmission-ng'
 
 group :assets do
 

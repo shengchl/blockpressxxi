@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210116015504) do
+ActiveRecord::Schema.define(version: 20210118004448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,12 +58,12 @@ ActiveRecord::Schema.define(version: 20210116015504) do
   add_index "address_hashtags", ["hashtag"], name: "index_address_hashtags_on_hashtag", unique: true, using: :btree
 
   create_table "address_idents", force: :cascade do |t|
-    t.string   "address_id",                    limit: 50,  null: false
+    t.string   "address_id",                    limit: 50, null: false
     t.string   "name",                          limit: 76
     t.string   "set_profile_name_tx"
     t.integer  "set_profile_name_block_id"
     t.integer  "set_profile_name_is_mempool"
-    t.string   "bio",                           limit: 220
+    t.text     "bio"
     t.string   "set_profile_bio_tx"
     t.integer  "set_profile_bio_block_id"
     t.integer  "set_profile_bio_is_mempool"
@@ -158,11 +158,11 @@ ActiveRecord::Schema.define(version: 20210116015504) do
     t.string   "action_tx",            limit: 70
     t.integer  "action_tx_block_id"
     t.integer  "action_tx_is_mempool"
-    t.string   "address_id",           limit: 50,              null: false
-    t.string   "post_body",            limit: 220
+    t.string   "address_id",           limit: 50,             null: false
+    t.text     "post_body"
     t.string   "post_image_ipfs"
     t.string   "reply_to_tx_id",       limit: 70
-    t.integer  "is_like",                          default: 0, null: false
+    t.integer  "is_like",                         default: 0, null: false
     t.integer  "post_created_at"
     t.datetime "created_at"
     t.datetime "updated_at"

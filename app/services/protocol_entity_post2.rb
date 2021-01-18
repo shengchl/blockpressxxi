@@ -10,7 +10,7 @@ class ProtocolEntityPost2 < ProtocolEntity2
 
     puts 'args first is...' + @args.first
     p 'arg1unpacked is ' + [@args.first].pack('H*') 
-    
+    return unless arg1unpacked.force_encoding(Encoding::UTF_8).valid_encoding?
     @post_body = arg1unpacked
     {
         post_body: arg1unpacked
@@ -44,7 +44,7 @@ class ProtocolEntityPost2 < ProtocolEntity2
   end
 
   def do_populate_domain!(block_id, block_time, is_mempool = false)
-    puts 'Populating post...' + @post_body
+    puts "Populating post... #{@post_body}"
     if block_id.blank? || block_time.blank?
       raise ProtocolEntity2::DomainError.new
     end
@@ -70,7 +70,7 @@ class ProtocolEntityPost2 < ProtocolEntity2
     # p @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
 
     # skip post if post body is not a valid utf8
-    return unless @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
+    # return unless @post_body.force_encoding(Encoding::UTF_8).valid_encoding?
     
     begin
       entity.save
@@ -79,8 +79,13 @@ class ProtocolEntityPost2 < ProtocolEntity2
       # skip error Incorrect string value: '\xA46\x16\xE6\xE6\xF7...' for colum
     end
     # Get hash tags and create them if needed, then link them
-    hashtags = @post_body.scan(/#\w+/).flatten.select{|hashtag| hashtag.length < 20}
-    ProtocolEntityPost2.create_and_attach_hashtags(@txhash, hashtags)
+    unless @post_body.nil?
+       hashtags = @post_body.scan(/#\w+/).flatten.select{|hashtag| hashtag.length < 20}
+       unless hashtags.empty?
+         ProtocolEntityPost2.create_and_attach_hashtags(@txhash, hashtags)
+       end
+     end
   end
+
   
 end

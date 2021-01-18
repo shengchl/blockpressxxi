@@ -9,6 +9,7 @@ class ProtocolParserFactory
 
 
   def self.get_params_array(hex)
+    puts "ENTRING INTO PARAMS PARCER" 
     params = []
     # Set the data pointer to the first argument to initialize loop
     data_ptr = 0
