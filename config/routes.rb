@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users,
              :controllers => {:registrations => 'custom_devise/registrations', :sessions => 'custom_devise/sessions'}
 
@@ -57,6 +58,11 @@ Rails.application.routes.draw do
   # Post photos
   get "/api/posts/tx/:tx_id/photos", to: "posts#photos", as: "post_photos"
   post "/api/posts/tx/:tx_id/photos", to: "posts#attach_photo", as: "attach_photo"
+
+  # Torrents
+  post "/api/torrents/:info_hash/set_timed_out", to: "torrents#set_timed_out"
+  post "/api/torrents/:info_hash/update_content", to: "torrents#update_content"
+  
 
   root to: 'home#index'
 end

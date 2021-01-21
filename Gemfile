@@ -95,7 +95,7 @@ gem 'bip_mnemonic'
 gem 'rmagick', :require => 'rmagick'
 gem 'popper_js'
 
-gem 'transmission-ng'
+gem 'faraday'
 
 group :assets do
 
