@@ -96,6 +96,7 @@ gem 'rmagick', :require => 'rmagick'
 gem 'popper_js'
 
 gem 'faraday'
+gem 'sidekiq'
 
 group :assets do
 

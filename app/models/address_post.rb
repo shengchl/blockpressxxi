@@ -12,10 +12,11 @@ class AddressPost < ActiveRecord::Base
     #         "info_hash": null,
     #         "files": [{ "name": "2021-01-Decentraliz
     
-    t = Torrent.find_or_create_by(info_hash: self.info_hash)
+    Torrent.find_or_create_by(info_hash: self.info_hash)
 
-    # add torrent for fetching and downloading if possible    
-     Webtorrent.new(info_hash: self.info_hash).add_torrent
+    # add torrent for fetching and downloading if possible
+    WebtorrentWorker.perform_async(info_hash: info_hash)
+     
   end 
        
 end

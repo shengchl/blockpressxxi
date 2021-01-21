@@ -6,8 +6,10 @@ class Webtorrent
 
   end
 
-  def add_torrent
-    req = Faraday.send('get', "http://localhost:1873/#{@info_hash}") {|req| req.headers['Content-Type'] = 'application/json' }
+  def fetch_metadata
+    req = Faraday.send('get', "http://localhost:1873/#{@info_hash}") do 
+      |req| req.headers['Content-Type'] = 'application/json'
+    end
 
     JSON.parse(req.body)
   end

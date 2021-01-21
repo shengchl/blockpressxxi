@@ -112,6 +112,7 @@ GEM
     coffee-script-source (1.12.2)
     color (1.8)
     concurrent-ruby (1.1.7)
+    connection_pool (2.2.3)
     crass (1.0.6)
     css_parser (1.7.1)
       addressable
@@ -484,6 +485,8 @@ GEM
     rack (1.6.13)
     rack-cors (1.0.6)
       rack (>= 1.6.0)
+    rack-protection (2.1.0)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.11.3)
@@ -525,6 +528,7 @@ GEM
       nokogiri (~> 1.5)
       optimist (~> 3.0)
     rdoc (4.3.0)
+    redis (4.2.5)
     ref (2.0.0)
     regexp_parser (1.8.2)
     request_store (1.5.0)
@@ -587,6 +591,11 @@ GEM
     shellany (0.0.1)
     shortener (0.8.2)
       voight_kampff (~> 1.1.2)
+    sidekiq (5.2.8)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (< 2.1.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -729,6 +738,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   selenium-webdriver
   shortener
+  sidekiq
   slim
   slim_assets
   spring
