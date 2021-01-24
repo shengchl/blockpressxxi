@@ -58,7 +58,8 @@ class ProtocolEntityPost2 < ProtocolEntity2
     entity.action_tx_is_mempool = 0
     entity.post_body = @post_body
     entity.post_created_at = block_time
-
+    p "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+    p entity
     # p @post_body
 
     # t = "\x89"

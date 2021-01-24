@@ -1,5 +1,7 @@
 class AddressPost < ActiveRecord::Base
 
+  has_one :torrent, foreign_key: :info_hash
+
   after_save :create_torrent_entry,  :if => Proc.new { |a| a.info_hash.present? }
 
   private

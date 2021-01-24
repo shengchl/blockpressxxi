@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210118191334) do
+ActiveRecord::Schema.define(version: 20210121150514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 20210118191334) do
   add_index "address_posts", ["action_tx_block_id"], name: "addy_posts_blockid_idx", using: :btree
   add_index "address_posts", ["address_id"], name: "addy_posts_addyid_idx", using: :btree
   add_index "address_posts", ["community"], name: "index_address_posts_on_community", using: :btree
+  add_index "address_posts", ["info_hash"], name: "index_address_posts_on_info_hash", using: :btree
   add_index "address_posts", ["is_like"], name: "addy_posts_is_like_atx_idx", using: :btree
   add_index "address_posts", ["media_type"], name: "index_address_posts_on_media_type", using: :btree
   add_index "address_posts", ["reply_to_tx_id"], name: "addy_repl_posts_atx_idx", using: :btree
@@ -274,14 +275,18 @@ ActiveRecord::Schema.define(version: 20210118191334) do
     t.datetime "updated_at"
   end
 
-  create_table "torrents", force: :cascade do |t|
-    t.boolean  "timed_out"
-    t.string   "info_hash"
-    t.string   "file_name"
-    t.text     "file_content"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+  create_table "torrent_files", force: :cascade do |t|
+    t.string   "torrent_info_hash"
+    t.string   "name"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "torrent_files", ["torrent_info_hash"], name: "index_torrent_files_on_torrent_info_hash", using: :btree
+
+# Could not dump table "torrents" because of following StandardError
+#   Unknown type 'torrent_status' for column 'status'
 
   create_table "unspent_utxos", force: :cascade do |t|
     t.string   "address",    limit: 80, null: false
@@ -338,4 +343,5 @@ ActiveRecord::Schema.define(version: 20210118191334) do
   add_foreign_key "account_managers", "users", on_delete: :cascade
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "network_connections", "accounts", on_delete: :cascade
+  add_foreign_key "torrent_files", "torrents", column: "torrent_info_hash", primary_key: "info_hash"
 end
