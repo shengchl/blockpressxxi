@@ -11,7 +11,10 @@ class Webtorrent
       |req| req.headers['Content-Type'] = 'application/json'
     end
 
-    JSON.parse(req.body)
+    res = JSON.parse(req.body)
+
+    Torrent.find_or_create_by(info_hash: @info_hash)# .update(res)
+    res
   end
 
 end

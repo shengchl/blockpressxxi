@@ -2,7 +2,7 @@ class AddressPost < ActiveRecord::Base
 
   has_one :torrent, foreign_key: :info_hash
 
-  after_save :create_torrent_entry,  :if => Proc.new { |a| a.info_hash.present? }
+  # after_save :create_torrent_entry,  :if => Proc.new { |a| a.info_hash.present? }
 
   private
   
@@ -17,7 +17,8 @@ class AddressPost < ActiveRecord::Base
     Torrent.find_or_create_by(info_hash: self.info_hash)
 
     # add torrent for fetching and downloading if possible
-    WebtorrentWorker.perform_async(info_hash: info_hash)
+    w = Webtorrent.new(info_hash: info_hash).fetch_metadata
+    # WebtorrentWorker.perform_async(info_hash: info_hash)
      
   end 
        
